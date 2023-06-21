@@ -1,0 +1,27 @@
+type: install
+name: MSSQL-Server
+
+# Environment to be created
+environment:
+  topology:
+    nodes:
+      - image: mcr.microsoft.com/mssql/server:2019-latest
+        displayName: MSSQL Server
+        count: 1
+        cloudlets: 16
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: YourStr0ng-SA-USER-Passw0rdHere
+        links:
+          - alias: DB
+        volumes:
+          - path: /var/opt/mssql
+            size: 10
+            nodeGroup: cp
+
+# Environment settings
+settings:
+  fields:
+    - type: string
+      name: MSSQL_SA_PASSWORD
+      caption: SA Password
